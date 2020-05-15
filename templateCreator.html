@@ -1,0 +1,139 @@
+<html>
+
+<head>
+	<style>
+		.form{
+			width:45%;
+			float:left;
+		}
+		.image{
+			width:45%;
+			padding:20px;
+			float:right;
+			overflow:hidden;
+		}
+		.cloud{
+			padding:20px;
+			border-style:solid;
+	
+		}
+		.presenter{
+			padding:20px;
+			border-style:solid;
+	
+		}
+		.presentation {
+			padding:20px;
+			border-style:solid;
+		
+		}
+		.mainimage {
+			padding:20px;
+			border-style:solid;
+		
+		}
+		.button{
+			width:100%;
+			height:10em;
+			background-color:green;
+			
+		}
+	</style>
+</head>
+<script>
+	
+	
+function updateImage(){
+	var cloudName = document.getElementById('cloudName').value;
+	var presenterImage = document.getElementById('presenterImage').value;
+	var presenterHeight = document.getElementById('presenterHeight').value;
+	var presenterWidth = document.getElementById('presenterWidth').value;
+	var presenterX = document.getElementById('presenterX').value;
+	var presenterY = document.getElementById('presenterY').value;
+	
+	var backgroundImage = document.getElementById('backgroundImage').value;
+	var backgroundWidth = document.getElementById('backgroundWidth').value;
+	var backgroundHeight = document.getElementById('backgroundHeight').value;
+	
+	var presentationImage = document.getElementById('presentationImage').value;
+	var presentationHeight = document.getElementById('presentationHeight').value;
+    var presentationWidth = document.getElementById('presentationWidth').value;
+	var presentationX = document.getElementById('presentationX').value;
+	var presentationY = document.getElementById('presentationY').value;
+
+	
+	var compositeUrl = "https://res.cloudinary.com/"+cloudName+"/image/upload/w_"+backgroundWidth+",h_"+backgroundHeight+"/l_"+presentationImage+",w_"+presentationWidth+",h_"+presentationHeight+",c_fill,g_auto/g_north_west,x_"+presentationX+",y_"+presentationY+",fl_layer_apply/"+"/l_"+presenterImage+",w_"+presenterWidth+",h_"+presenterHeight+",c_fill,g_auto/g_north_west,x_"+presenterX+",y_"+presenterY+",fl_layer_apply/"+backgroundImage+".jpg";
+	
+	var compositeImage = "<img width='100%' src="+compositeUrl+">";
+	
+	document.getElementById("imageUrl").innerHTML = compositeUrl;
+	document.getElementById("image").innerHTML = compositeImage;
+}
+	
+	//https://res.cloudinary.com/dougsillars/video/upload/w_1920/l_ImgCon2020/fl_layer_apply/l_video:fish_preso,so_7.9/g_north_west,x_550,y_180,g_north_west,fl_layer_apply/l_video:presenter,so_11,c_fill,w_400,h_400/g_north_west,x_50,y_400,fl_layer_apply/fish_preso.mp4
+	//https://res.cloudinary.com/dougsillars/image/upload/w_1920,h_1080/g_north_west,l_preso,x_500,y_200,w_1280,h_720,fl_layer_apply/backgroundImage.png
+
+
+
+</script>
+	
+	
+	
+<body>
+	
+	Create the template url for your video by positioning the presentation and the presenter on the backdrop.
+	<div class"horizontal">
+	<div class="form" style=>
+	 <form >
+	  <div class = "cloud">	 
+	  	<label name="cloudName" >Cloudinary Cloud Name</label>
+	  	<input type="text" id="cloudName" value="dougsillars"><br/>
+	  </div>
+	  <br/>
+	  <div class = "presenter">
+	  	<label name="presenter" >Presenter Image</label>
+	  	<input type="text" id="presenterImage" value = "presenterimage"><br/>
+	  	<label name="presenterHeight" >Presenter height</label>
+	  	<input type="text" id="presenterHeight" value = "500">
+	  	<label name="presenterWidth" > width</label>
+	  	<input type="text" id="presenterWidth" value = "500"><br/>
+	  	<label name="presenterX" >Presenter X offset</label>
+	  	<input type="text" id="presenterX" value = "20">
+	  	<label name="presenterY" > Y offset</label>
+	  	<input type="text" id="presenterY" value = "300"><br/>
+	  </div>
+	  <br/>
+	  <div class = "presentation">
+	  <label name="presention" >Presentation Image</label>
+	  <input type="text" id="presentationImage" value = "preso"><br/>
+	  <label name="presentationHeight" >Presentation height</label>
+	  <input type="text" id="presentationHeight" value = "720">
+	  <label name="presentationWidth" > width</label>
+	  <input type="text" id="presentationWidth" value = "1280"><br/>
+	  <label name="presentationX" >Presentation X offset</label>
+	  <input type="text" id="presentationX" value = "400">
+	  <label name="presentationY" > Y offset</label>
+	  <input type="text" id="presentationY" value = "300"><br/>
+  </div>
+	  <br/>
+  <div class = "mainimage">	  
+	  <label name="background" >background Image</label>
+	  <input type="text" id="backgroundImage" value = "backgroundImage"><br/>
+	  <label name="backgroundHeight" >background height</label>
+	  <input type="text" id="backgroundHeight" value = "1080"><br/>
+	  <label name="backgroundWidth" > width</label>
+	  <input type="text" id="backgroundWidth" value = "1920"><br/>
+</div>	
+	  <br/>  
+	  <input class="button" type="button" value="Update Image" onclick='updateImage();'>
+	 </form>
+	</div>
+	
+	<div id="image" class="image">
+	</div>
+</div>
+	<div id="imageUrl" class="imageUrl">
+	</div>
+</body>
+
+</html>
