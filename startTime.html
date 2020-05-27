@@ -53,6 +53,8 @@
       parameter "?url={cloudinary video url}"
     </div>
     <video id="timer" class="video" controls></video>
+	<div id="waveform">
+	</div>	
     <br />
     <div id="buttons">
       <div class="block" type="button" id="play_button">Play</div>
@@ -81,6 +83,16 @@
     if (videoUrl === null) {
       videoUrl = url;
     }
+	//get the waveform urk
+	var urlPrefix = videoUrl.lastIndexOf("upload")+6;
+	var urlStart = videoUrl.substr(0,urlPrefix);
+	var lastPeriod = videoUrl.lastIndexOf(".");
+	console.log(lastPeriod);
+	var urlEnd = videoUrl.substr(0, lastPeriod);
+	console.log("urlEnd", urlEnd);
+	urlEnd = urlEnd.substr(urlPrefix);
+	console.log("urlEnd", urlEnd);
+	
 
     var source = document.createElement("source");
     source.src = videoUrl;
@@ -119,5 +131,12 @@
       console.log(playback);
       document.getElementById("playbackInfo").innerHTML = playback;
     }
+	window.onload = function(){
+	    var waveformUrl = urlStart +"/fl_waveform,w_640,h_100,eo_30" +urlEnd + ".jpg";
+		document.getElementById("waveform").innerHTML = "<img src='" + waveformUrl+"'>";
+		console.log("waveformUrl", waveformUrl);
+		
+		
+	}
   </script>
 </html>

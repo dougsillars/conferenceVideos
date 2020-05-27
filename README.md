@@ -9,7 +9,7 @@ With the websites in this reporsitory, you can create high quality conference vi
 
 The layout describes how you will arrange the video of the speaker and the slides on your custom backdrop.  You'll probably only needto do this once per conferece (keeping a similar layout across all talks).
 
-1. Create the layout of your conference talk.  To do this, you'll need your conference "backdrop", and 2 sample images: a presenter and a sample slide.
+1. Create the layout of your conference talk.  To do this, you'll need your conference "backdrop", and 2 sample images: a presenter and a sample slide uploaded to your Cloudinary Cloud.
 
 
 ### Process a video
