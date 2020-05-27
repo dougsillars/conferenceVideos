@@ -1,0 +1,128 @@
+<html>
+<head>
+	<style>
+		.video{
+			width:50%;
+		}
+		.block {
+		  display: block;
+		  width: 50%;
+		  border: none;
+		  background-color: #4CAF50;
+		  padding-top: 20px;
+		  padding-bottom:20px;
+		  font-size: 24px;
+		  cursor: pointer;
+		  text-align: center;
+		}
+		.directions{
+			width:50%;
+		}
+		.back {
+		  display: block;
+		  width: 50%;
+		  border: none;
+		  background-color: green;
+		  padding-top: 20px;
+		  padding-bottom:20px;
+		  font-size: 24px;
+		  cursor: pointer;
+		  text-align: center;
+		  float:left;
+		}
+		.forward {
+		  display: block;
+		  width: 50%;
+		  border: none;
+		  background-color: green;
+		  padding-top: 20px;
+		  padding-bottom:20px;
+		  font-size: 24px;
+		  cursor: pointer;
+		  text-align: center;
+		  float:right;
+		}
+		.info{
+			padding:24	px;
+			
+		}
+		</style>
+</head>
+<body>
+	<video id="timer" class="video" controls>
+		
+	</video>
+	<br/>
+	<div id="buttons">
+		<div class="block" type="button" id="play_button">Play</div>
+		<div id="direction" class="directions">
+			<div class="back"  type="button" text="backward" id="bck_button">Backward</div>
+			<div class="forward" type="button" text="forward" id="fwd_button">Forward</div>
+		</div>
+		
+	</div>
+	<br/>
+	<br/>
+	<div class="info" id="playbackInfo" width = "100%">
+		
+	</div>
+	
+</body>
+<script>
+	var timer = document.getElementById('timer');
+	var timeJump = 0.500;
+	
+	var url = "https://res.cloudinary.com/dougsillars/video/upload/v1589960426/camera_xtsteh.mp4";
+	var urlParams = new URLSearchParams(window.location.search);
+	var videoUrl = urlParams.get('url');	
+
+	if (videoUrl.length <10){
+		videoUrl=url;
+	}
+	
+	
+	var source = document.createElement('source');
+	source.src = videoUrl;
+	timer.appendChild(source);
+	
+	
+	
+	var playButton = document.getElementById("play_button");
+	// Event listener for the play/pause button
+	playButton.addEventListener("click", function() {
+	  if (timer.paused == true) {
+	    // Play the video
+	    timer.play();
+
+	    // Update the button text to 'Pause'
+	    playButton.innerHTML = "Pause";
+	  } else {
+	    // Pause the video
+	    timer.pause();
+
+	    // Update the button text to 'Play'
+	    playButton.innerHTML = "Play";
+	  }
+	});
+	bck_button.addEventListener("click", function() {
+		timer.currentTime = timer.currentTime - timeJump;
+	});
+	fwd_button.addEventListener("click", function() {
+		timer.currentTime = timer.currentTime + timeJump;
+	});
+	
+	//get data every 250ms
+	timer.addEventListener('timeupdate', statusUpdate);
+	function statusUpdate() {
+        //playbacktime
+		var videoCurrentTime = timer.currentTime;
+        var playback = "video (s): " +videoCurrentTime.toFixed(2);
+		console.log(playback);
+        document.getElementById("playbackInfo").innerHTML = playback;
+	}
+	
+	
+	
+	</script>
+
+</html>

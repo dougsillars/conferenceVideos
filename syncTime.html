@@ -1,0 +1,206 @@
+<html>
+<head>
+	<style>
+		.video1{
+			width:50%;
+			float:left;
+			overflow:hidden;
+		}
+		.video1{
+			width:50%;
+			float:right;
+			overflow:hidden;
+		}
+			.start1box{
+				width:50%;
+				float:left;
+				overflow:hidden;
+	  		  padding-top: 20px;
+	  		  padding-bottom:20px;
+			  font-size: 24px;
+		 
+		      text-align: center;
+			}
+			.start2box{
+				width:50%;
+				float:right;
+				overflow:hidden;
+	  		  padding-top: 20px;
+	  		  padding-bottom:20px;
+			  font-size: 24px;
+		 
+		      text-align: center;
+			}
+		.block {
+		  display: block;
+		  width: 50%;
+		  border: none;
+		  background-color: #4CAF50;
+		  padding-top: 20px;
+		  padding-bottom:20px;
+		  font-size: 24px;
+		  cursor: pointer;
+		  text-align: center;
+		}
+		.directions{
+			width:100%;
+		}
+		.reset {
+		  display: block;
+		  width: 50%;
+		  border: none;
+		  background-color: red;
+		  padding-top: 20px;
+		  padding-bottom:20px;
+		  font-size: 24px;
+		  cursor: pointer;
+		  text-align: center;
+		}
+		.info{
+			padding:24	px;
+			
+		}
+		</style>
+</head>
+<body>
+	<div id="videos">
+		<video id="timer1" class="video" width="45%" controls preload="auto">
+		
+		</video>
+		<video id="timer2" class="video" width="45%" controls preload="auto">
+		
+		</video>
+	</div>
+	<div id="timers">
+		<input id="start1" type="text" class="start1box">
+		<input id="start2" type="text" class="start2box">
+	</div>
+	<div id="waveforms">
+	</div>
+	<br/>
+	<div id="buttons">
+		<div class="block" type="button" id="play_button">Play</div>
+		<div id="direction" class="directions">
+			<div class="reset"  type="button" text="Reset" id="reset">Reset</div>
+		</div>
+		
+	</div>
+	<br/>
+	<br/>
+	<div class="info" id="playbackInfo" width = "100%">
+		
+	</div>
+	
+</body>
+<script>
+	var timer1 = document.getElementById('timer1');
+	var timer2 = document.getElementById('timer2');
+	var waveformDiv = document.getElementById('waveforms');
+	
+	var timeJump =0.5;
+	var url1 = "https://res.cloudinary.com/dougsillars/video/upload/v1589960426/camera.mp4";
+	var url2 = "https://res.cloudinary.com/dougsillars/video/upload/v1589960587/imagecon_video.mov";
+	var urlPrefix = "https://res.cloudinary.com/dougsillars/video/upload/";
+	var presenterVideo="camera";
+	var presoVideo="imagecon_video";
+	
+	var urlParams = new URLSearchParams(window.location.search);
+	var videoUrl1 = urlParams.get('url1');	
+	var videoUrl2 = urlParams.get('url2');
+	var startTime1 = urlParams.get('start1');
+	var startTime2 = urlParams.get('start2');
+	if (videoUrl1.length <10){
+		videoUrl1=url1;
+	}
+	if (videoUrl2.length <10){
+		videoUrl2=url2;
+	}
+	var startTimer1 = document.getElementById('start1');
+	var startTimer2 = document.getElementById('start2');
+	startTimer1.value = startTime1;
+	startTimer2.value = startTime2;
+	timerDifference = startTimer1.value - startTimer2.value;
+	var source1 = document.createElement('source');
+	var source2 = document.createElement('source');
+	var timerDifference;	
+	source1.src = videoUrl1;
+	timer1.appendChild(source1);
+	timer1.volume = 0.75;
+	source2.src = videoUrl2;
+	timer2.appendChild(source2);
+	timer2.volume = 0.25;
+	
+	buildWaveforms();
+	
+	
+	//set the start time for the 2 videos
+	timer1.currentTime = startTimer1.value;	
+	timer2.currentTime = startTimer2.value;
+	var playButton = document.getElementById("play_button");
+	// Event listener for the play/pause button
+	playButton.addEventListener("click", function() {
+	  if (timer1.paused == true) {
+	      //get start time from inpug boxes
+		
+
+  		timerDifference = startTimer1.value - startTimer2.value;
+  		console.log("timer diff", timerDifference);
+		// Play the video
+	    timer1.play();
+		timer2.play();
+	    // Update the button text to 'Pause'
+	    playButton.innerHTML = "Pause";
+	  } else {
+	    // Pause the video
+		  console.log("paused");
+  	    timer1.pause();
+  		timer2.pause();
+	    // Update the button text to 'Play'
+	    playButton.innerHTML = "Play";
+	  }
+	});
+	
+	
+	
+	reset.addEventListener("click", function() {
+  	    //stop players and reset the numbers in the 
+		timer1.pause();
+  		timer2.pause();
+  		//set the start time for the 2 videos
+  		timer1.currentTime = startTimer1.value;	
+  		timer2.currentTime = startTimer2.value;
+        buildWaveforms();
+
+	});
+	
+	//ghandle seeking through the 2 videos
+	timer1.addEventListener('seeking', statusUpdate1);
+	function statusUpdate1() {
+        //playbacktime
+		var video1CurrentTime = timer1.currentTime;
+        var video2CurrentTime  = timer1.currentTime -timerDifference;
+	//	console.log (timer1.currentTime, video2CurrentTime, timerDifference);
+		timer2.currentTime = video2CurrentTime;	
+	}
+
+	function buildWaveforms(){
+		//waveforms
+		startTimer1Value = parseFloat(startTimer1.value);
+		startTimer2Value = parseFloat(startTimer2.value);
+		var waveformDiv = document.getElementById('waveforms');
+		var wf1Start=Math.max(0, startTimer1Value-5);
+		var wf1End = wf1Start+10;
+		//console.log( wf1End, wf1Start);
+		var waveform1 = urlPrefix + "fl_waveform,w_720,h_100,so_"+wf1Start+",eo_"+wf1End+"/"+presenterVideo+".jpg";
+		console.log(waveform1);
+		var wf2Start=Math.max(0, startTimer2Value-5);
+		var wf2End = wf2Start+10;
+		var waveform2 = urlPrefix + "fl_waveform,w_720,h_100,so_"+wf2Start+",eo_"+wf2End+"/"+presoVideo+".jpg";
+		console.log(waveform2);
+		waveformDiv.innerHTML = "<img src="+waveform1+">Presenter<br/>"+"<img src="+waveform2+">Presentation";
+		console.log("updated waveforms")
+	}
+	
+	</script>
+
+</html>
