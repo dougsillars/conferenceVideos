@@ -28,5 +28,8 @@ The layout describes how you will arrange the video of the speaker and the slide
 
 7. Generate your completed. Use the Create Video webpage to configure and upload the final video. (this is still under construction and not part of the repo.  However, two sample NodeJS files are here that create the final videos.  The presentation_test.js creates a 6 second version of the video to test before generating the full talk.  If you are happy with those results - continue with the full presentation.js to create the final video.  This file also uses the presenter video to create a transcript and VTT file (which will have incorrect timings).
 
+The JSON response from 7 will have the final url of your presentation. For example, here is a simple talk I created on a Dr. Suess book:
+https://res.cloudinary.com/dougsillars/video/upload/w_1920/l_ImgCon2020/fl_layer_apply/l_video:fish_preso,so_7.9/g_north_west,x_550,y_180,g_north_west,fl_layer_apply/l_video:presenter,so_11,c_fill,w_400,h_400/g_north_west,x_50,y_400,fl_layer_apply/fish_preso.mp4
+
 
 
