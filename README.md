@@ -26,7 +26,7 @@ The layout describes how you will arrange the video of the speaker and the slide
 
 6. Our goal is to get the two videos to start at *about* the same time - say within 100ms of each other. In general, if a slide changes 100ms off from the audio track, it does not effect the overall presentation.  The videos are set to begin playback at the "start time" found in step 3.  In the screenshot above, we can see that the waveforms do not match - indicating that the audio is off.  Press play, and both videos start - you can hear the offset.  Adjust the values in the input boxes to change the video start times.  Then press "reset" to reset the start points and generate 2 new waveforms.  Keep iterating until the 2 videos very nearly overlap: both visually with the waveform and aurally by pressuing play.  Record your 2 new start times.
 
-!("/syncTimealigned.png")
+!(/syncTimealigned.png)
 
 7. Generate your completed. Use the Create Video webpage to configure and upload the final video. (this is still under construction and not part of the repo.  However, two sample NodeJS files are here that create the final videos.  The presentation_test.js creates a 6 second version of the video to test before generating the full talk.  If you are happy with those results - continue with the full presentation.js to create the final video.  This file also uses the presenter video to create a transcript and VTT file (which will have incorrect timings).
 
