@@ -62,7 +62,7 @@ function updateImage(){
 	var presentationY = document.getElementById('presentationY').value;
 
 	
-	var compositeUrl = "https://res.cloudinary.com/"+cloudName+"/image/upload/w_"+backgroundWidth+",h_"+backgroundHeight+"/l_"+presentationImage+",w_"+presentationWidth+",h_"+presentationHeight+",c_fill,g_auto/g_north_west,x_"+presentationX+",y_"+presentationY+",fl_layer_apply/"+"/l_"+presenterImage+",w_"+presenterWidth+",h_"+presenterHeight+",c_fill,g_auto/g_north_west,x_"+presenterX+",y_"+presenterY+",fl_layer_apply/"+backgroundImage+".jpg";
+	var compositeUrl = "https://res.cloudinary.com/"+cloudName+"/image/upload/w_"+backgroundWidth+",h_"+backgroundHeight+"/l_"+presentationImage+",w_"+presentationWidth+",h_"+presentationHeight+",c_crop,g_auto/g_auto/g_north_west,x_"+presentationX+",y_"+presentationY+",fl_layer_apply/"+"/l_"+presenterImage+",w_"+presenterWidth+",h_"+presenterHeight+",c_fill,g_auto/g_north_west,x_"+presenterX+",y_"+presenterY+",fl_layer_apply/"+backgroundImage+".jpg";
 	
 	var compositeImage = "<img width='100%' src="+compositeUrl+">";
 	
