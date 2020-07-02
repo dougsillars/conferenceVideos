@@ -1,0 +1,52 @@
+<html>
+<head>
+<link href="https://unpkg.com/cloudinary-video-player@1.4.0/dist/cld-video-player.min.css" rel="stylesheet">
+<script src="https://unpkg.com/cloudinary-core@2.8.2/cloudinary-core-shrinkwrap.min.js" type="text/javascript"></script>
+<script src="https://unpkg.com/cloudinary-video-player@1.4.0/dist/cld-video-player.min.js" 
+    type="text/javascript"></script>
+    <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js" 
+   type="text/javascript"></script>
+</head>
+
+
+<body>
+
+<video
+  id="video-player"
+  controls
+  autoplay
+  width = "640"
+  class="cld-video-player cld-video-player-skin-dark">
+</video>
+
+<script>
+var cld = cloudinary.Cloudinary.new({ cloud_name: 'dougsillars' });
+var player = cld.videoPlayer('video-player',  {
+                playlistWidget: {
+                    direction: 'vertical',
+                    total:3
+                },
+
+            });
+
+      var lions = { publicId: 'lions', info: { title: 'Lions', subtitle: 'Kings and Queens of the animals' } };
+      var tigers = { publicId: 'tigers', info: { title: 'tigers', subtitle: 'striped cats' } };
+      var bears = { publicId: 'bears', info: { title: 'bear', subtitle: 'rowar!' } };
+
+player.playlistByTag("ltb_ad",
+{  autoAdvance: 0, repeat: true, presentUpcoming: 5 })
+.then(function(player) 
+{
+            console.log("Playlist loaded")
+ })
+ 
+</script>
+
+
+
+</body>
+
+
+
+
+</html>
